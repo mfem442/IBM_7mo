@@ -19,8 +19,10 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/ibm-building.jpg";
 
 require('dotenv').config();
+import axios from 'axios';
 
 function Login() {
+  const BASE_URL = process.env.BASE_URL || "";
   const navigate = useNavigate();
 
 
@@ -45,39 +47,29 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    try {
-      const res = await fetch(`${BASE_URL}/api/user/signin`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: values.email,
-          password: values.password,
-        }),
+    axios.post(`${BASE_URL}/api/user/signin`, {
+      body: JSON.stringify({
+        email: values.email,
+        password: values.password,
       })
-
-      if(!res.ok) {
-        const error = await res.json()
-        return setErrors({
+      .then((response) => {
+        alert("¡Login Exitoso!");
+        navigate("/dashboard");
+      })
+    }).catch(error => {
+        alert("Error con el Login");
+        setErrors({
           ...errors,
           fetchError: true,
           fetchErrorMsg: error.msg,
-        })
-      } else {
-        alert("¡Login Exitoso!");
-        navigate("/dashboard");
-      }
+        });
+    })
 
       setValues({
         email: "",
         password: "",
         showPassword: false,
       })
-    } catch (error) {
-      alert("Error con el Login");
-      console.error(error.message)
-    }
   }
 
   return (

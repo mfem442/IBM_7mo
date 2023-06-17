@@ -14,6 +14,7 @@ import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatist
 // Data
 import DefaultDoughnutChart from "examples/Charts/DoughnutCharts/DefaultDoughnutChart";
 require('dotenv').config();
+import axios from 'axios';
 
 function Dashboard() {
 
@@ -24,112 +25,58 @@ function Dashboard() {
   const [totalEmployees, setTotalEmployees] = useState([]);
   const [meanCertifications, setMeanCertifications] = useState([]);
   const [meanResult, setMeanResult] = useState("");
+  const BASE_URL = process.env.BASE_URL || "";
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        // Fetch top certifications
-        const certRes = await fetch(`${BASE_URL}/api/certification/top`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-        });
-        if (!certRes.ok) {
-          const error = await certRes.json();
-          throw new Error(error.msg);
-        }
-        const certData = await certRes.json();
-        setTopCertifications(certData);
+      axios.get(`${BASE_URL}/api/certification/top`)
+      .then((response) => {
+        setTopCertifications(response);
+      })
+      .catch(error => console.log(error));
 
-        // Fetch top employees
-        const empRes = await fetch(`${BASE_URL}/api/employee/top`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-        });
-        if (!empRes.ok) {
-          const error = await empRes.json();
-          throw new Error(error.msg);
-        }
-        const empData = await empRes.json();
-        setTopEmployees(empData);
+      // Fetch top employees
+      axios.get(`${BASE_URL}/api/employee/top`)
+      .then((response) => {
+        setTopEmployees(response);
+      })
+      .catch(error => console.log(error));
 
-        //Fetch certification frequency
-        const freqRes = await fetch(`${BASE_URL}/api/certification/pie`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-        });
-        if (!freqRes.ok) {
-          const error = await freqRes.json();
-          throw new Error(error.msg);
-        }
-        const freqData = await freqRes.json();
-        setFrequencyCerts(freqData);
-
-      } catch (error) {
-        console.log(error.message);
-      }
+      //Fetch certification frequency
+      axios.get(`${BASE_URL}/api/certification/pie`)
+      .then((response) => {
+        setFrequencyCerts(response);
+      })
+      .catch(error => console.log(error));
 
       // Fetch total certificaciones
-      const certTotal = await fetch(`${BASE_URL}/api/certification/count`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      if (!certTotal.ok) {
-        const error = await certTotal.json();
-        throw new Error(error.msg);
-      }
-      const certTotalData = await certTotal.json();
-      setTotalCertifications(certTotalData);
+      axios.get(`${BASE_URL}/api/certification/count`)
+      .then((response) => {
+        setTotalCertifications(response);
+      })
+      .catch(error => console.log(error));
 
       // Fetch total empleados
-      const empTotal = await fetch(`${BASE_URL}/api/employee/count`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      if (!empTotal.ok) {
-        const error = await empTotal.json();
-        throw new Error(error.msg);
-      }
-      const empTotalData = await empTotal.json();
-      setTotalEmployees(empTotalData);
+      axios.get(`${BASE_URL}/api/employee/count`)
+      .then((response) => {
+        setTotalEmployees(response);
+      })
+      .catch(error => console.log(error));
 
       // Fetch promedio de certificaciones
-      const meanData = await fetch(`${BASE_URL}/api/employee/mean`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      if (!meanData.ok) {
-        const error = await meanData.json();
-        throw new Error(error.msg);
-      }
-      const meanRes = await meanData.json();
-      setMeanCertifications(meanRes);
+      axios.get(`${BASE_URL}/api/employee/mean`)
+      .then((response) => {
+        setMeanCertifications(response);
+      })
+      .catch(error => console.log(error));
       
       //Promedio de certificaciones por empleado
-      const meanTotal = await fetch(`${BASE_URL}/api/employee/mean/total`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      if (!meanTotal.ok) {
-        const error = await meanTotal.json();
-        throw new Error(error.msg);
-      }
-      const meanTotalRes = await meanTotal.json();
-      setMeanResult(meanTotalRes[0].meanCertifications.toFixed(0).toString());
-    };
+      axios.get(`${BASE_URL}/api/employee/mean/total`)
+      .then((response) => {
+        setMeanResult(response[0].meanCertifications.toFixed(0).toString());
+      })
+      .catch(error => console.log(error));
+    }
 
     fetchData();
   }, []);
