@@ -60,5 +60,6 @@
   "nohoist": [
     "**/@material-ui/pickers**",
     "**/the-3rd-part-library**"
-  ]
+  ],
+  "proxy": "https://ibm-7mo-zte8.vercel.app"
 }
