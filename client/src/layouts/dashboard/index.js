@@ -13,6 +13,7 @@ import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatist
 
 // Data
 import DefaultDoughnutChart from "examples/Charts/DoughnutCharts/DefaultDoughnutChart";
+require('dotenv').config();
 
 function Dashboard() {
 
@@ -28,7 +29,7 @@ function Dashboard() {
     const fetchData = async () => {
       try {
         // Fetch top certifications
-        const certRes = await fetch(`/api/certification/top`, {
+        const certRes = await fetch(`${BASE_URL}/api/certification/top`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
@@ -42,7 +43,7 @@ function Dashboard() {
         setTopCertifications(certData);
 
         // Fetch top employees
-        const empRes = await fetch(`/api/employee/top`, {
+        const empRes = await fetch(`${BASE_URL}/api/employee/top`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
@@ -56,7 +57,7 @@ function Dashboard() {
         setTopEmployees(empData);
 
         //Fetch certification frequency
-        const freqRes = await fetch(`/api/certification/pie`, {
+        const freqRes = await fetch(`${BASE_URL}/api/certification/pie`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
@@ -74,7 +75,7 @@ function Dashboard() {
       }
 
       // Fetch total certificaciones
-      const certTotal = await fetch(`/api/certification/count`, {
+      const certTotal = await fetch(`${BASE_URL}/api/certification/count`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -88,7 +89,7 @@ function Dashboard() {
       setTotalCertifications(certTotalData);
 
       // Fetch total empleados
-      const empTotal = await fetch(`/api/employee/count`, {
+      const empTotal = await fetch(`${BASE_URL}/api/employee/count`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -102,7 +103,7 @@ function Dashboard() {
       setTotalEmployees(empTotalData);
 
       // Fetch promedio de certificaciones
-      const meanData = await fetch(`/api/employee/mean`, {
+      const meanData = await fetch(`${BASE_URL}/api/employee/mean`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -116,7 +117,7 @@ function Dashboard() {
       setMeanCertifications(meanRes);
       
       //Promedio de certificaciones por empleado
-      const meanTotal = await fetch(`/api/employee/mean/total`, {
+      const meanTotal = await fetch(`${BASE_URL}/api/employee/mean/total`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

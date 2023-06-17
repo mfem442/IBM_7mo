@@ -7,6 +7,7 @@ import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
 import MDButton from 'components/MDButton';
 import FormInput from '../../components/FormInput';
 import { useState } from 'react';
+require('dotenv').config();
 
 export default function RegistroCertificate() {
 
@@ -41,7 +42,7 @@ export default function RegistroCertificate() {
     event.preventDefault();
   
     try {
-      const res = await fetch('/api/certification/newCertification', {
+      const res = await fetch(`${BASE_URL}/api/certification/newCertification`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

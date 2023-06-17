@@ -10,6 +10,7 @@ import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatist
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import EmployeeTableSearch from "./layouts/components/employeeTableSearch/index.js";
 import Saly from './assets/Saly-10.png';
+require('dotenv').config();
 
 export default function Search(){
     const location = useLocation();
@@ -37,7 +38,7 @@ export default function Search(){
     
             try {
               const query = encodeURIComponent(selectedSearch);
-              const res = await fetch(`/api/employee/search?type=${query}`, {
+              const res = await fetch(`${BASE_URL}/api/employee/search?type=${query}`, {
                 method: 'GET',
                 headers: {
                   'Content-Type': 'application/json'

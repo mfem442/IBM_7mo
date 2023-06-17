@@ -18,10 +18,10 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 // Images
 import bgImage from "assets/images/ibm-building.jpg";
 
+require('dotenv').config();
+
 function Login() {
-  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
-  const [result, setResult] = useState();
 
 
   // api call
@@ -46,7 +46,7 @@ function Login() {
     event.preventDefault()
 
     try {
-      const res = await fetch('/api/user/signin', {
+      const res = await fetch(`${BASE_URL}/api/user/signin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
