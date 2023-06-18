@@ -41,7 +41,7 @@ export default function RegistroCertificate() {
     event.preventDefault();
   
     try {
-      const res = await fetch('/api/certification/newCertification', {
+      const res = await fetch('https://ibm-7mo-zte8.vercel.app/api/certification/newCertification', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

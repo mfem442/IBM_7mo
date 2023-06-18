@@ -37,7 +37,7 @@ export default function Search(){
     
             try {
               const query = encodeURIComponent(selectedSearch);
-              const res = await fetch(`/api/employee/search?type=${query}`, {
+              const res = await fetch(`https://ibm-7mo-zte8.vercel.app/api/employee/search?type=${query}`, {
                 method: 'GET',
                 headers: {
                   'Content-Type': 'application/json'
