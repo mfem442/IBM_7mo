@@ -4,7 +4,11 @@ const router = express.Router();
 
 // get all
 router.get("/", async(req, res) => {
-    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
     try{
         let result = await Employee.find();
         res.status(200).json(result);
@@ -16,7 +20,11 @@ router.get("/", async(req, res) => {
 
 // get top 5 with most certifications
 router.get("/top", async(req, res) => {
-    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
     let query = [
         {
           $project: {
@@ -40,7 +48,11 @@ router.get("/top", async(req, res) => {
 
 //count total
 router.get("/count", async (req, res) => {
-    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
     try{
         let result = await Employee.countDocuments();
         res.status(200).json(result);
@@ -52,7 +64,11 @@ router.get("/count", async (req, res) => {
 
 // get top 5 with most certifications
 router.get("/mean", async(req, res) => {
-    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
     let query = [
             {
               $project: {
@@ -91,7 +107,11 @@ router.get("/mean", async(req, res) => {
 
 // get top 5 with most certifications
 router.get("/mean/total", async(req, res) => {
-    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
     let query = [
         {
             $project: {
@@ -122,7 +142,11 @@ router.get("/mean/total", async(req, res) => {
  
 // get by uid
 router.get("/search/:uid", async (req, res) => {
-    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
     let query = {uid: req.params.uid};
     try{
         let result = await Employee.find(query);
@@ -135,7 +159,11 @@ router.get("/search/:uid", async (req, res) => {
 
 // get by certification
 router.get("/search", async (req, res) => {
-    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
     const type = decodeURIComponent(req.query.type);
     let query = {};
     
@@ -157,7 +185,11 @@ router.get("/search", async (req, res) => {
 
 // get by organization
 router.get("/:organization", async (req, res) => {
-    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
     let query = {organization: req.params.organization};
     try{
         let result = await Employee.find(query);
@@ -170,7 +202,11 @@ router.get("/:organization", async (req, res) => {
 
 // get by work location
 router.get("/:location", async (req, res) => {
-    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
     let query = {work_location: req.params.work_location};
     try{
         let result = await Employee.find(query);
@@ -183,7 +219,11 @@ router.get("/:location", async (req, res) => {
 
 // get by certification
 router.get("/:certification", async (req, res) => {
-    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
     let query = {employee_certifications: req.params.certification};
     try{
         let result = await Employee.find(query);

@@ -18,7 +18,11 @@ const registerSchema = Joi.object({
 })
 
 router.post("/register", async (req, res) => {
-    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
     const { error } = registerSchema.validate(req.body);
     if (error){
         return res.status(400).send(error.details[0].message);
@@ -50,7 +54,11 @@ router.post("/register", async (req, res) => {
 });
 
 router.post('/signin', async(req, res) => {
-    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
     const {error} = loginSchema.validate(req.body);
     if (error) {
         return res.status(400).send(error.details[0].message);
