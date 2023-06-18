@@ -59,6 +59,8 @@ router.post('/signin', async(req, res) => {
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
     );
+    if(req.method === 'OPTIONS') { return res.status(200).json(({ body: "OK" })) }
+
     const {error} = loginSchema.validate(req.body);
     if (error) {
         return res.status(400).send(error.details[0].message);
@@ -79,8 +81,6 @@ router.post('/signin', async(req, res) => {
     // create token
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
     res.header("auth-token", token).send(token);
-
-    if(req.method === 'OPTIONS') { return res.status(200).json(({ body: "OK" })) }
 });
 
 module.exports = router;
