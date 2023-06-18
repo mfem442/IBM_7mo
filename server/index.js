@@ -38,6 +38,7 @@ app.listen(PORT, () => {
 });
 
 // route middlewares
+app.options('*', cors());
 app.use('/api/user', authRoutes);
 app.use('/api/employee', employeeRoutes);
 app.use('/api/certification', certificationRoutes);
