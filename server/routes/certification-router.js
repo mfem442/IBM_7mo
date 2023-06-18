@@ -4,7 +4,7 @@ const router = express.Router();
 
 // get all
 router.get("/", async(req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', "*");
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
@@ -20,7 +20,7 @@ router.get("/", async(req, res) => {
 
 // get top 5 
 router.get("/top", async(req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', "*");
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
@@ -50,7 +50,7 @@ router.get("/top", async(req, res) => {
 
 // get frequency
 router.get("/pie", async(req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', "*");
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
@@ -91,7 +91,7 @@ router.get("/pie", async(req, res) => {
 
 //count total
 router.get("/count", async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', "*");
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
@@ -107,7 +107,7 @@ router.get("/count", async (req, res) => {
 
 // get by uid
 router.get("/:uid", async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', "*");
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
@@ -124,7 +124,7 @@ router.get("/:uid", async (req, res) => {
 
 // get by name
 router.get("/:name", async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', "*");
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
@@ -141,7 +141,7 @@ router.get("/:name", async (req, res) => {
 
 // get by issue date
 router.get("/:date", async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', "*");
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
@@ -158,7 +158,7 @@ router.get("/:date", async (req, res) => {
 
 // get by type
 router.get("/:type", async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', "*");
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
@@ -175,7 +175,7 @@ router.get("/:type", async (req, res) => {
 
 // create certification
 router.post("/newCertification", async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
+    res.setHeader('Access-Control-Allow-Origin', "*");
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
