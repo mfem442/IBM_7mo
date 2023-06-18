@@ -10,15 +10,12 @@ import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatist
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import EmployeeTableSearch from "./layouts/components/employeeTableSearch/index.js";
 import Saly from './assets/Saly-10.png';
-require('dotenv').config();
-import axios from 'axios';
 
 export default function Search(){
     const location = useLocation();
     const param = new URLSearchParams(location.search);
     const selectedSearch = param.get('type');
     const search = selectedSearch;
-    const BASE_URL = process.env.BASE_URL || ""
 
     const [data, setData] = useState([]);
     const [errors, setErrors] = useState({
@@ -37,18 +34,31 @@ export default function Search(){
 
     useEffect(() => {
         const handleSearchSubmit = async () => {
-            
-            const query = encodeURIComponent(selectedSearch);
-            axios.get(`${BASE_URL}/api/employee/search?type=${query}`)
-            .then((response) => {
-                setData(response.data);
-            }).catch(error => {
-                setErrors({
-                    ...errors,
-                    fetchError: true,
-                    fetchErrorMsg: error.msg,
+    
+            try {
+              const query = encodeURIComponent(selectedSearch);
+              const res = await fetch(`/api/employee/search?type=${query}`, {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+              })
+        
+              if(!res.ok) {
+                const error = await res.json()
+                return setErrors({
+                  ...errors,
+                  fetchError: true,
+                  fetchErrorMsg: error.msg,
                 })
-            })
+              } 
+              
+              const json = await res.json()
+              setData(json);
+        
+            } catch(error){
+              console.log(error.message)
+            }
         }
         handleSearchSubmit();
 

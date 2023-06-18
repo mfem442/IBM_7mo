@@ -16,6 +16,7 @@ const app = express();
 //middlewares
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
 
 // start the Express server and database
 mongoose.set('strictQuery', false);

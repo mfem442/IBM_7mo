@@ -7,11 +7,8 @@ import DashboardLayout from 'examples/LayoutContainers/DashboardLayout';
 import MDButton from 'components/MDButton';
 import FormInput from '../../components/FormInput';
 import { useState } from 'react';
-require('dotenv').config();
-import axios from 'axios';
 
 export default function RegistroCertificate() {
-  const BASE_URL = process.env.BASE_URL || "";
 
   // registrar certificaciones
   const [values, setValues] = useState({
@@ -42,26 +39,35 @@ export default function RegistroCertificate() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    axios.post(`${BASE_URL}/api/certification/newCertification`, {
-      body: JSON.stringify({
-        uid: values.uid,
-        name: values.name,
-        issue_date: values.issue_date,
-        type: values.type,
-        description: values.description,
-    }).then((response) => {
-      alert('Certificación registrada correctamente');
-    }).catch(error => {
-          setErrors({
-            ...errors,
-            fetchError: true,
-            fetchErrorMsg: error.msg,
-          })
-
-        alert('Ocurrió un error al registrar la certificación');
+  
+    try {
+      const res = await fetch('/api/certification/newCertification', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          uid: values.uid,
+          name: values.name,
+          issue_date: values.issue_date,
+          type: values.type,
+          description: values.description,
+        }),
       })
-    })
+      
+      if(!res.ok){
+        const error = await res.json()
+        return setErrors({
+          ...errors,
+          fetchError: true,
+          fetchErrorMsg: error.msg,
+        })
+      }
+      alert('Certificación registrada correctamente');
+    } catch (error) {
+      console.error('Error al registrar la certificación:', error.message);
+      alert('Ocurrió un error al registrar la certificación');
+    }
   };
 
   return (

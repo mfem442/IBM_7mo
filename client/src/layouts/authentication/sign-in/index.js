@@ -18,12 +18,10 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 // Images
 import bgImage from "assets/images/ibm-building.jpg";
 
-require('dotenv').config();
-import axios from 'axios';
-
 function Login() {
-  const BASE_URL = process.env.BASE_URL || "";
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
+  const [result, setResult] = useState();
 
 
   // api call
@@ -47,29 +45,39 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    axios.post(`${BASE_URL}/api/user/signin`, {
-      body: JSON.stringify({
-        email: values.email,
-        password: values.password,
+    try {
+      const res = await fetch('https://ibm-7mo-zte8.vercel.app/api/user/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: values.email,
+          password: values.password,
+        }),
       })
-      .then((response) => {
-        alert("¡Login Exitoso!");
-        navigate("/dashboard");
-      })
-    }).catch(error => {
-        alert("Error con el Login");
-        setErrors({
+
+      if(!res.ok) {
+        const error = await res.json()
+        return setErrors({
           ...errors,
           fetchError: true,
           fetchErrorMsg: error.msg,
-        });
-    })
+        })
+      } else {
+        alert("¡Login Exitoso!");
+        navigate("/dashboard");
+      }
 
       setValues({
         email: "",
         password: "",
         showPassword: false,
       })
+    } catch (error) {
+      alert("Error con el Login");
+      console.error(error.message)
+    }
   }
 
   return (
