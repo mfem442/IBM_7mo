@@ -4,6 +4,7 @@ const router = express.Router();
 
 // get all
 router.get("/", async(req, res) => {
+    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
     try{
         let result = await Certification.find();
         res.status(200).json(result);
@@ -15,6 +16,7 @@ router.get("/", async(req, res) => {
 
 // get top 5 
 router.get("/top", async(req, res) => {
+    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
     let query = [
         {
           $group: {
@@ -40,6 +42,7 @@ router.get("/top", async(req, res) => {
 
 // get frequency
 router.get("/pie", async(req, res) => {
+    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
     let query = [
             {
               $group: {
@@ -76,6 +79,7 @@ router.get("/pie", async(req, res) => {
 
 //count total
 router.get("/count", async (req, res) => {
+    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
     try{
         let result = await Certification.countDocuments();
         res.status(200).json(result);
@@ -87,6 +91,7 @@ router.get("/count", async (req, res) => {
 
 // get by uid
 router.get("/:uid", async (req, res) => {
+    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
     let query = {uid: req.params.uid};
     try{
         let result = await Certification.find(query);
@@ -99,6 +104,7 @@ router.get("/:uid", async (req, res) => {
 
 // get by name
 router.get("/:name", async (req, res) => {
+    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
     let query = {name: req.params.name};
     try{
         let result = await Certification.find(query);
@@ -111,6 +117,7 @@ router.get("/:name", async (req, res) => {
 
 // get by issue date
 router.get("/:date", async (req, res) => {
+    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
     let query = {issue_date: req.params.issue_date};
     try{
         let result = await Certification.find(query);
@@ -123,6 +130,7 @@ router.get("/:date", async (req, res) => {
 
 // get by type
 router.get("/:type", async (req, res) => {
+    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
     let query = {type: req.params.type};
     try{
         let result = await Certification.find(query);
@@ -135,6 +143,7 @@ router.get("/:type", async (req, res) => {
 
 // create certification
 router.post("/newCertification", async (req, res) => {
+    res.set('Access-Control-Allow-Origin', `${process.env.BASE_URL}`);
 
     // checar que no estén vacíos los campos
     if (req.body.uid === '' || req.body.name === '' || req.body.description === '' || req.body.type === '' || req.body.issue_date === '') {
